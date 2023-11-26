@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FilterdTodos } from "./components/FilterdTodos";
 import { EditTodo } from "./components/EditTodo";
 import { AddTodo } from "./components/AddTodo";
+import { FilterSelect } from "./components/FilterSelect";
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
@@ -95,12 +96,7 @@ export const Todo = () => {
 
   return (
     <>
-      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-        <option value="all">すべて</option>
-        <option value="notStarted">未着手</option>
-        <option value="inProgress">作業中</option>
-        <option value="done">完了</option>
-      </select>
+     <FilterSelect filter={filter} setFilter={setFilter} />
 
       {!isEditable ? (
         <AddTodo todoTitle={todoTitle} handleSetTodoTitle={handleSetTodoTitle} handleAddTodo={handleAddTodo} />
