@@ -22,6 +22,11 @@ export const Todo = () => {
     resetTodoTitle();
   };
 
+  const handleDeleteTodo = (targetTodo) => {
+    setTodos(todos.filter((todo) => todo.id !== targetTodo.id));
+  };
+
+
   return (
     <>
       <div>
@@ -43,7 +48,7 @@ export const Todo = () => {
               <option value="done">完了</option>
             </select>
             <button>編集</button>
-            <button>削除</button>
+            <button onClick={() => handleDeleteTodo(todo)}>削除</button>
           </li>
         ))}
       </ul>
