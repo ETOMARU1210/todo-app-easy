@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import { FilterdTodos } from "./components/FilterdTodos";
+import { EditTodo } from "./components/EditTodo";
+import { AddTodo } from "./components/AddTodo";
+import { FilterSelect } from "./components/FilterSelect";
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
@@ -92,52 +96,19 @@ export const Todo = () => {
 
   return (
     <>
-      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-        <option value="all">すべて</option>
-        <option value="notStarted">未着手</option>
-        <option value="inProgress">作業中</option>
-        <option value="done">完了</option>
-      </select>
+     <FilterSelect filter={filter} setFilter={setFilter} />
 
       {!isEditable ? (
-        <>
-          <input
-            type="text"
-            label="タイトル"
-            value={todoTitle}
-            onChange={handleSetTodoTitle}
-          />
-          <button onClick={() => handleAddTodo()}>作成</button>
-        </>
+        <AddTodo todoTitle={todoTitle} handleSetTodoTitle={handleSetTodoTitle} handleAddTodo={handleAddTodo} />
       ) : (
-        <>
-         <>
-          <input
-            type="text"
-            label="新しいタイトル"
-            value={newTitle}
-            onChange={handleSetNewTitle}
-          />
-          <button onClick={handleEditTodo}>編集を保存</button>
-          <button onClick={handleCloseEditForm}>キャンセル</button>
-        </>
-        </>
+        <EditTodo newTitle={newTitle} handleEditTodo={handleEditTodo} handleSetNewTitle={handleSetNewTitle} handleCloseEditForm={handleCloseEditForm} />
       )}
-
-      <ul>
-        {filteredTodos.map((todo) => (
-          <li key={todo.id}>
-            <span>{todo.title}</span>
-            <select value={todo.status} onChange={handleStatusChange}>
-              <option value="notStarted">未着手</option>
-              <option value="inProgress">作業中</option>
-              <option value="done">完了</option>
-            </select>
-            <button onClick={() => handleOpenEditForm(todo)}>編集</button>
-            <button onClick={() => handleDeleteTodo(todo)}>削除</button>
-          </li>
-        ))}
-      </ul>
+      <FilterdTodos
+        filteredTodos={filteredTodos}
+        handleStatusChange={handleStatusChange}
+        handleOpenEditForm={handleOpenEditForm}
+        handleDeleteTodo={handleDeleteTodo}
+      />
     </>
   );
 };
