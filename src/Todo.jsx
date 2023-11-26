@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FilterdTodos } from "./components/FilterdTodos";
 import { EditTodo } from "./components/EditTodo";
+import { AddTodo } from "./components/AddTodo";
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
@@ -102,15 +103,7 @@ export const Todo = () => {
       </select>
 
       {!isEditable ? (
-        <>
-          <input
-            type="text"
-            label="タイトル"
-            value={todoTitle}
-            onChange={handleSetTodoTitle}
-          />
-          <button onClick={() => handleAddTodo()}>作成</button>
-        </>
+        <AddTodo todoTitle={todoTitle} handleSetTodoTitle={handleSetTodoTitle} handleAddTodo={handleAddTodo} />
       ) : (
         <EditTodo newTitle={newTitle} handleEditTodo={handleEditTodo} handleSetNewTitle={handleSetNewTitle} handleCloseEditForm={handleCloseEditForm} />
       )}
